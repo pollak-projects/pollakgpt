@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🤖 PollakGPT
 
-## Getting Started
+![PollakGPT](https://img.shields.io/badge/PollakGPT-v1.0-blue)
 
-First, run the development server:
+## 📝 Projekt leírás
+
+PollakGPT egy modern, magyar nyelvű AI chat alkalmazás, amely a Google Gemini API-t használja. Az alkalmazás Next.js-sel készült és a mesterséges intelligencia erejét használja, hogy természetes nyelvű beszélgetéseket folytasson a felhasználókkal.
+
+## ✨ Funkciók
+
+- 💬 Valós idejű chat interfész
+- 📚 Beszélgetési előzmények tárolása
+- 📋 Markdown tartalom másolása
+- 🔄 Újrapróbálási lehetőség hiba esetén
+- 🌙 Sötét mód dizájn
+- ⚡ Válaszok animált megjelenítése
+- ❌ Megerősítés beszélgetés törléséhez
+- ⚙️ Környezeti változók használata az API kulcs és modell tárolásához
+
+## 🚀 Kezdő lépések
+
+1. **Klónozd a repót**
+
+```bash
+git clone https://github.com/felhasznalonev/pollakgpt.git
+cd pollakgpt
+```
+
+2. **Telepítsd a függőségeket**
+
+```bash
+npm install
+# vagy
+pnpm install
+```
+
+3. **Konfiguráld a környezeti változókat**
+
+Hozz létre egy `.env.local` fájlt a következő tartalommal:
+
+```bash
+NEXT_PUBLIC_APIKEY=your_gemini_api_key
+NEXT_PUBLIC_AI_MODEL=gemini-2.0-flash
+```
+
+4. **Indítsd el a fejlesztői szervert**
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
+# vagy
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. **Nyisd meg a böngészőben**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Látogass el a [http://localhost:3000](http://localhost:3000) címre a böngésződben.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 💻 Technológiák
 
-## Learn More
+- [Next.js](https://nextjs.org/) - React keretrendszer
+- [React](https://react.dev/) - Frontend könyvtár
+- [Tailwind CSS](https://tailwindcss.com/) - CSS keretrendszer
+- [Google Gemini API](https://ai.google.dev/) - AI modell
 
-To learn more about Next.js, take a look at the following resources:
+## 📦 Projektstruktúra
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+  app/
+    components/    # UI komponensek
+    hooks/         # React hook-ok
+    utils/         # Segédfunkciók és típusok
+    globals.css    # Globális stílusok
+    page.tsx       # Főoldal komponens
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🤝 Hozzájárulás
 
-## Deploy on Vercel
+A hozzájárulásokat szívesen fogadjuk! Nyiss egy pull request-et vagy jelentsd a hibákat az issue szekcióban.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📄 Licenc
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Ez a projekt MIT licenc alatt áll - lásd a [LICENSE](LICENSE) fájlt a részletekért.
+
+---
+
+Készítette a 12. SZF1 csoport a Szentesi Pollák Antal Technikum számára.
