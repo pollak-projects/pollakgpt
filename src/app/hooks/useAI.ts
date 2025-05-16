@@ -44,7 +44,7 @@ export function useAI() {
 
       // Build system instruction based on prompt config
       let systemInstruction =
-        "Válaszolj magyarul. Használhatsz markdown formázást a válaszaidban, kivéve ha máshogy kérik.";
+        'Válaszolj magyarul. Használhatsz markdown formázást a válaszaidban, kivéve ha máshogy kérik. Fogalmazz meg objektumorientált programozási gyakorlófeladatokat részletes követelményekkel, ahol minden feladat tartalmaz egy rövid leírást, osztályok és attribútumaik felsorolását (alapértelmezett értékekkel), default és paraméterezett konstruktorokat érvényességi ellenőrzésekkel, legalább egy metódust az adatok megjelenítésére, kapcsolódó osztályokat (pl. tulajdonos–autó), valamint kiegészítő funkciókat (pl. listázás, keresés, szűrés), és a formázás a következő legyen: "Feladat cím", "Leírás", "Követelmények" pontokkal, végül opcionális "Példa használat" résszel.';
 
       if (promptConfig) {
         if (promptConfig.language) {
