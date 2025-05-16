@@ -71,6 +71,7 @@ export default function Home() {
     const userMessage: Message = { role: "user", content: input };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
+    // Setting input to empty will trigger the useEffect in ChatInput to focus the textarea
     await generateAIResponse(
       input,
       [...messages, userMessage],
@@ -128,7 +129,7 @@ export default function Home() {
           handleSubmit={handleSubmit}
         />{" "}
         <div className="py-2">
-          <div className="max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto text-center text-xs text-gray-500">
+          <div className="w-full max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto text-center text-xs text-gray-500">
             Készítette a 12. SZF1 csoport a Szentesi Pollák Antal Technikum
             számára.
           </div>

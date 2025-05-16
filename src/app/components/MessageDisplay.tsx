@@ -27,7 +27,7 @@ export default function MessageDisplay({
 
   return (
     <div className="flex-1 overflow-auto p-3 sm:p-4">
-      <div className="max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto space-y-4">
+      <div className="w-full max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto space-y-4">
         {messages.length === 0 ? (
           <div className="text-center text-gray-400 mt-4 sm:mt-8">
             <h2 className="text-xl sm:text-2xl font-bold mb-2">

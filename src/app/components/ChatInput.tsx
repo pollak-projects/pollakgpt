@@ -26,6 +26,15 @@ export default function ChatInput({
     }
   };
 
+  // Focus textarea after sending a message
+  useEffect(() => {
+    if (!isLoading && input === "") {
+      setTimeout(() => {
+        textareaRef.current?.focus();
+      }, 100);
+    }
+  }, [isLoading, input]);
+
   useEffect(() => {
     adjustTextareaHeight();
   }, [input]);
@@ -33,9 +42,10 @@ export default function ChatInput({
     <div className="border-t border-gray-700 p-3 sm:p-4">
       <form
         onSubmit={handleSubmit}
-        className="max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto"
+        className="w-full max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto"
       >
         <div className="relative">
+          {" "}
           <textarea
             ref={textareaRef}
             value={input}
@@ -48,6 +58,7 @@ export default function ChatInput({
                 }
               }
             }}
+            autoFocus
             rows={1}
             placeholder="Írj egy üzenetet... (Shift+Enter új sorhoz)"
             className="w-full bg-gray-800 text-white border border-gray-600 rounded-lg py-3 px-4 pr-14 focus:outline-none focus:border-blue-500 resize-none overflow-auto text-base sm:text-sm"

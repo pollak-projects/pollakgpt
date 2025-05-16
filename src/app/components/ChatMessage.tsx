@@ -36,7 +36,7 @@ export default function ChatMessage({ message, onRetry }: ChatMessageProps) {
         message.role === "user"
           ? "bg-blue-600 text-white ml-auto"
           : "bg-gray-700 text-white"
-      } max-w-[90%] sm:max-w-[80%] ${
+      } max-w-[90%] sm:max-w-[85%] md:max-w-[80%] w-fit ${
         message.role === "user" ? "ml-auto" : "mr-auto"
       } relative group`}
     >
@@ -44,7 +44,7 @@ export default function ChatMessage({ message, onRetry }: ChatMessageProps) {
         message.content
       ) : (
         <>
-          <div className="prose prose-invert max-w-none prose-sm sm:prose-base">
+          <div className="prose prose-invert w-full max-w-none prose-sm sm:prose-base">
             <Markdown
               options={{
                 overrides: {
