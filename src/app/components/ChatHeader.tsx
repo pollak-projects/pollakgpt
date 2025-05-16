@@ -14,16 +14,16 @@ export default function ChatHeader({
   startNewChat,
 }: ChatHeaderProps) {
   return (
-    <header className="bg-gray-800 p-4 text-white flex justify-between items-center">
+    <header className="bg-gray-800 py-3 px-2 sm:p-3 text-white flex justify-between items-center border-b border-gray-700">
       <div className="flex items-center">
         <button
           onClick={() => setIsHistoryOpen(!isHistoryOpen)}
-          className="mr-3 text-gray-300 hover:text-white p-1 -ml-1"
+          className="mr-3 text-gray-300 hover:text-white p-2 -ml-1 focus:outline-none focus:ring-1 focus:ring-blue-500 rounded"
           aria-label="Előzmények mutatása/elrejtése"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
+            className="h-6 w-6 sm:h-5 sm:w-5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -41,7 +41,7 @@ export default function ChatHeader({
 
       <button
         onClick={startNewChat}
-        className="text-sm bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-md flex items-center"
+        className="text-sm bg-blue-600 hover:bg-blue-700 px-3 py-2 sm:py-1 rounded-md flex items-center"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

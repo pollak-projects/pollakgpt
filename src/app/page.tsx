@@ -17,6 +17,16 @@ export default function Home() {
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [isConfigPopupOpen, setIsConfigPopupOpen] = useState(false);
   const [isEditingConfig, setIsEditingConfig] = useState(false);
+
+  React.useEffect(() => {
+    // Listen for custom closeHistory event from ChatHistory component
+    const closeHistoryHandler = () => setIsHistoryOpen(false);
+    document.addEventListener("closeHistory", closeHistoryHandler);
+
+    return () => {
+      document.removeEventListener("closeHistory", closeHistoryHandler);
+    };
+  }, []);
   const {
     messages,
     setMessages,
@@ -81,9 +91,15 @@ export default function Home() {
       currentPromptConfig
     );
   };
-
   return (
-    <div className="flex h-screen bg-gray-900">
+    <div className="flex h-screen bg-gray-900 relative overflow-hidden max-w-screen-2xl mx-auto">
+      {/* Overlay for mobile - closes history when clicked */}
+      {isHistoryOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-10 sm:hidden"
+          onClick={() => setIsHistoryOpen(false)}
+        ></div>
+      )}
       <ChatHistory
         isHistoryOpen={isHistoryOpen}
         chatSessions={chatSessions}
@@ -91,8 +107,8 @@ export default function Home() {
         loadChatSession={handleLoadChatSession}
         deleteChatSession={deleteChatSession}
         startNewChat={handleStartNewChat}
-      />
-      <div className="flex flex-col flex-1">
+      />{" "}
+      <div className="flex flex-col flex-1 w-full transition-all">
         <ChatHeader
           isHistoryOpen={isHistoryOpen}
           setIsHistoryOpen={setIsHistoryOpen}

@@ -44,37 +44,67 @@ export default function ChatHistory({
     setIsConfirmOpen(false);
     setPendingDeleteId(null);
   };
-
   return (
     <div
       className={`${
-        isHistoryOpen ? "w-64" : "w-0"
-      } bg-gray-800 transition-all duration-300 overflow-hidden`}
+        isHistoryOpen
+          ? "w-full sm:w-80 md:w-96 lg:w-[22rem] fixed sm:relative z-20"
+          : "w-0"
+      } bg-gray-800 transition-all duration-300 overflow-hidden h-full sm:border-r-2 sm:border-gray-700`}
     >
+      {" "}
       <div className="flex flex-col h-full">
-        <div className="p-4 border-b border-gray-700">
-          <h2 className="text-lg font-semibold text-white">Előzmények</h2>
-        </div>
-        <div className="flex-1 overflow-y-auto p-2">
+        <div className="py-3 px-3 border-b border-gray-700 flex justify-between items-center">
+          <h2 className="text-xl sm:text-lg font-semibold text-white">
+            Előzmények
+          </h2>{" "}
+          <button
+            className="sm:hidden text-gray-300 p-1 rounded-full hover:bg-gray-700"
+            onClick={() => document.dispatchEvent(new Event("closeHistory"))} // Custom event to close the panel
+            aria-label="Bezárás"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>{" "}
+        <div className="flex-1 overflow-y-auto p-2 px-1 sm:px-1">
           {chatSessions.length === 0 ? (
             <p className="text-gray-400 text-sm p-2">Nincsenek előzmények</p>
           ) : (
-            <div className="space-y-1">
+            <div className="space-y-2 sm:space-y-1">
               {chatSessions
                 .sort((a, b) => b.updatedAt - a.updatedAt)
                 .map((session) => (
                   <div
                     key={session.id}
-                    onClick={() => loadChatSession(session.id)}
-                    className={`p-2 rounded cursor-pointer flex justify-between items-center ${
+                    onClick={() => {
+                      loadChatSession(session.id);
+                      // Close history on mobile after selecting a chat
+                      if (window.innerWidth < 640) {
+                        document.dispatchEvent(new Event("closeHistory"));
+                      }
+                    }}
+                    className={`py-2 px-2 rounded cursor-pointer flex justify-between items-center mb-1 ${
                       session.id === currentChatId
                         ? "bg-blue-600 text-white"
                         : "text-gray-300 hover:bg-gray-700"
                     }`}
                   >
                     {" "}
-                    <div className="truncate text-sm flex-1">
-                      <div>{session.title}</div>{" "}
+                    <div className="truncate text-base sm:text-sm flex-1">
+                      <div className="font-medium">{session.title}</div>{" "}
                       {session.promptConfig?.language && (
                         <div className="text-xs text-gray-400">
                           {session.promptConfig.language}
@@ -93,16 +123,16 @@ export default function ChatHistory({
                                 : ""
                             }`}
                         </div>
-                      )}
-                    </div>{" "}
+                      )}{" "}
+                    </div>
                     <button
                       onClick={(e) => handleDeleteClick(session.id, e)}
-                      className="text-gray-400 hover:text-gray-200 p-1"
+                      className="text-gray-400 hover:text-gray-200 p-1 ml-1 rounded-full hover:bg-gray-600"
                       aria-label="Beszélgetés törlése"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4"
+                        className="h-5 w-5 sm:h-4 sm:w-4"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -119,15 +149,15 @@ export default function ChatHistory({
                 ))}
             </div>
           )}
-        </div>
-        <div className="p-3 border-t border-gray-700">
+        </div>{" "}
+        <div className="py-3 px-3 border-t border-gray-700">
           <button
             onClick={startNewChat}
-            className="w-full py-2 px-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md flex items-center justify-center"
+            className="w-full py-2.5 sm:py-2 px-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md flex items-center justify-center"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 mr-2"
+              className="h-5 w-5 sm:h-4 sm:w-4 mr-2"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -143,7 +173,6 @@ export default function ChatHistory({
           </button>
         </div>{" "}
       </div>
-
       <ConfirmationDialog
         isOpen={isConfirmOpen}
         title="Beszélgetés törlése"

@@ -29,10 +29,9 @@ export default function ChatInput({
   useEffect(() => {
     adjustTextareaHeight();
   }, [input]);
-
   return (
-    <div className="border-t border-gray-700 p-4">
-      <form onSubmit={handleSubmit} className="max-w-3xl mx-auto">
+    <div className="border-t border-gray-700 p-3 sm:p-4">
+      <form onSubmit={handleSubmit} className="max-w-4xl mx-auto">
         <div className="relative">
           <textarea
             ref={textareaRef}
@@ -48,7 +47,7 @@ export default function ChatInput({
             }}
             rows={1}
             placeholder="Írj egy üzenetet... (Shift+Enter új sorhoz)"
-            className="w-full bg-gray-800 text-white border border-gray-600 rounded-lg py-3 px-4 pr-12 focus:outline-none focus:border-blue-500 resize-none overflow-auto"
+            className="w-full bg-gray-800 text-white border border-gray-600 rounded-lg py-3 px-4 pr-14 focus:outline-none focus:border-blue-500 resize-none overflow-auto text-base sm:text-sm"
             style={{
               minHeight: "50px",
               maxHeight: "150px",
@@ -58,11 +57,12 @@ export default function ChatInput({
           <button
             type="submit"
             disabled={isLoading || !input.trim()}
-            className="absolute right-2 top-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md p-1.5 transition-colors disabled:bg-gray-600 disabled:cursor-not-allowed"
+            className="absolute right-2 top-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md p-2 transition-colors disabled:bg-gray-600 disabled:cursor-not-allowed"
+            aria-label="Küldés"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
+              className="h-5 w-5 sm:h-4 sm:w-4"
               viewBox="0 0 20 20"
               fill="currentColor"
             >

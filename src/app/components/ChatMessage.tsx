@@ -30,14 +30,13 @@ export default function ChatMessage({ message, onRetry }: ChatMessageProps) {
       onRetry(message.originalPrompt);
     }
   };
-
   return (
     <div
-      className={`p-4 rounded-lg ${
+      className={`p-3 sm:p-4 rounded-lg text-sm sm:text-base ${
         message.role === "user"
           ? "bg-blue-600 text-white ml-auto"
           : "bg-gray-700 text-white"
-      } max-w-[80%] ${
+      } max-w-[90%] sm:max-w-[80%] ${
         message.role === "user" ? "ml-auto" : "mr-auto"
       } relative group`}
     >
@@ -45,14 +44,14 @@ export default function ChatMessage({ message, onRetry }: ChatMessageProps) {
         message.content
       ) : (
         <>
-          <div className="prose prose-invert max-w-none">
+          <div className="prose prose-invert max-w-none prose-sm sm:prose-base">
             <Markdown
               options={{
                 overrides: {
                   code: {
                     component: CodeBlock,
                     props: {
-                      className: "mb-4",
+                      className: "mb-3 sm:mb-4",
                     },
                   },
                 },
@@ -61,19 +60,19 @@ export default function ChatMessage({ message, onRetry }: ChatMessageProps) {
               {message.content}
             </Markdown>
           </div>{" "}
-          {message.isTyping && <span className="ml-1 typing-cursor"></span>}
+          {message.isTyping && <span className="ml-1 typing-cursor"></span>}{" "}
           {!message.isTyping && (
             <div className="absolute bottom-2 right-2 flex space-x-2">
               {message.isError && onRetry && message.originalPrompt && (
                 <button
                   onClick={handleRetry}
-                  className="bg-red-600 hover:bg-red-500 text-white p-1.5 rounded-full opacity-0 group-hover:opacity-80 transition-opacity"
+                  className="bg-red-600 hover:bg-red-500 text-white p-1.5 sm:p-1.5 rounded-full sm:opacity-0 opacity-80 group-hover:opacity-80 transition-opacity"
                   aria-label="Újrapróbálás"
                   title="Újrapróbálás"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-3.5 w-3.5"
+                    className="h-4 w-4 sm:h-3.5 sm:w-3.5"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -86,16 +85,16 @@ export default function ChatMessage({ message, onRetry }: ChatMessageProps) {
                     />
                   </svg>
                 </button>
-              )}
+              )}{" "}
               <button
                 onClick={copyContentAsMarkdown}
-                className="bg-gray-600 hover:bg-gray-500 text-white p-1.5 rounded-full opacity-0 group-hover:opacity-80 transition-opacity"
+                className="bg-gray-600 hover:bg-gray-500 text-white p-1.5 sm:p-1.5 rounded-full sm:opacity-0 opacity-80 group-hover:opacity-80 transition-opacity"
                 aria-label="Másolás Markdownként"
                 title="Másolás Markdownként"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-3.5 w-3.5"
+                  className="h-4 w-4 sm:h-3.5 sm:w-3.5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
