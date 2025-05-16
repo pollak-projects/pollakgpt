@@ -50,11 +50,11 @@ export default function ChatHistory({
         isHistoryOpen
           ? "w-full sm:w-80 md:w-96 lg:w-[22rem] fixed sm:relative z-20"
           : "w-0"
-      } bg-gray-800 transition-all duration-300 overflow-hidden h-full sm:border-r-2 sm:border-gray-700`}
+      } bg-gray-800 transition-all duration-300 overflow-hidden h-full`}
     >
       {" "}
       <div className="flex flex-col h-full">
-        <div className="py-3 px-3 border-b border-gray-700 flex justify-between items-center">
+        <div className="py-4 px-3 border-b border-gray-700 flex justify-between items-center">
           <h2 className="text-xl sm:text-lg font-semibold text-white">
             Előzmények
           </h2>{" "}

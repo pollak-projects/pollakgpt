@@ -108,7 +108,7 @@ export default function Home() {
         deleteChatSession={deleteChatSession}
         startNewChat={handleStartNewChat}
       />{" "}
-      <div className="flex flex-col flex-1 w-full transition-all">
+      <div className="flex flex-col flex-1 w-full transition-all sm:border-l-2 sm:border-gray-700">
         <ChatHeader
           isHistoryOpen={isHistoryOpen}
           setIsHistoryOpen={setIsHistoryOpen}
@@ -127,9 +127,11 @@ export default function Home() {
           isLoading={isLoading}
           handleSubmit={handleSubmit}
         />{" "}
-        <div className="text-center text-xs text-gray-500 py-2">
-          Készítette a 12. SZF1 csoport a Szentesi Pollák Antal Technikum
-          számára.
+        <div className="py-2">
+          <div className="max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto text-center text-xs text-gray-500">
+            Készítette a 12. SZF1 csoport a Szentesi Pollák Antal Technikum
+            számára.
+          </div>
         </div>
       </div>{" "}
       <PromptConfigPopup

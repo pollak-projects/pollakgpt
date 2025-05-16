@@ -14,7 +14,7 @@ export default function ChatHeader({
   startNewChat,
 }: ChatHeaderProps) {
   return (
-    <header className="bg-gray-800 py-3 px-2 sm:p-3 text-white flex justify-between items-center border-b border-gray-700">
+    <header className="bg-gray-800 py-4 px-2 sm:px-3 text-white flex justify-between items-center border-b border-gray-700">
       <div className="flex items-center">
         <button
           onClick={() => setIsHistoryOpen(!isHistoryOpen)}

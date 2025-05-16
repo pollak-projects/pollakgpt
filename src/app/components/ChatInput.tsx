@@ -31,7 +31,10 @@ export default function ChatInput({
   }, [input]);
   return (
     <div className="border-t border-gray-700 p-3 sm:p-4">
-      <form onSubmit={handleSubmit} className="max-w-4xl mx-auto">
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto"
+      >
         <div className="relative">
           <textarea
             ref={textareaRef}
