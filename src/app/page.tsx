@@ -92,7 +92,7 @@ export default function Home() {
     );
   };
   return (
-    <div className="flex h-screen bg-gray-900 relative overflow-hidden max-w-screen-2xl mx-auto">
+    <div className="flex h-screen bg-gray-900 relative overflow-hidden mx-auto w-full">
       {/* Overlay for mobile - closes history when clicked */}
       {isHistoryOpen && (
         <div
