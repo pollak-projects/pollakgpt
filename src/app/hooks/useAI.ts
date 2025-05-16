@@ -9,7 +9,8 @@ export function useAI() {
   const generateAIResponse = async (
     input: string,
     messages: Message[],
-    setMessages: React.Dispatch<React.SetStateAction<Message[]>>
+    setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
+    promptConfig?: { language: string; context: string; grade: string }
   ) => {
     setIsLoading(true);
     try {
@@ -39,15 +40,45 @@ export function useAI() {
           });
         }
       }
-
       historyMessages.push({ role: "user", parts: [{ text: input }] });
+
+      // Build system instruction based on prompt config
+      let systemInstruction =
+        "Válaszolj magyarul. Használhatsz markdown formázást a válaszaidban, kivéve ha máshogy kérik.";
+
+      if (promptConfig) {
+        if (promptConfig.language) {
+          systemInstruction += ` Programozási példákban használj ${promptConfig.language} nyelvet, ha releváns.`;
+        }
+
+        if (promptConfig.context) {
+          systemInstruction += ` Figyelj a következő kontextusra: ${promptConfig.context}`;
+        }
+
+        if (promptConfig.grade) {
+          const gradeLevel = parseInt(promptConfig.grade);
+          if (!isNaN(gradeLevel)) {
+            // Adjust difficulty based on grade
+            if (gradeLevel === 9) {
+              systemInstruction += ` Használj egyszerű magyarázatokat, alapfogalmakat, és kerüld a komplex témaköröket. A válaszaid legyenek rövidek és könnyen érthetőek. Az algoritmikus gondolkodás alapjait mutasd be.`;
+            } else if (gradeLevel === 10) {
+              systemInstruction += ` Használj egyszerű szaknyelvet, de magyarázd el részletesen a fogalmakat. A válaszaid legyenek közepesen részletesek. Mutass be alapvető algoritmusokat és adatszerkezeteket, ha releváns.`;
+            } else if (gradeLevel === 11) {
+              systemInstruction += ` Használj szaknyelvet, de továbbra is adj magyarázatokat a bonyolultabb fogalmakhoz. A válaszaid legyenek részletesebbek, de érthetőek. Mutass be összetettebb algoritmusokat és programozási mintákat, ha releváns.`;
+            } else if (gradeLevel === 12) {
+              systemInstruction += ` Használj szaknyelvet, feltételezve hogy az alapfogalmakat már ismerik. A válaszaid legyenek részletesek és átfogóak. Mutass be haladó algoritmusokat és programozási koncepciókat, ha releváns.`;
+            } else if (gradeLevel === 13) {
+              systemInstruction += ` Használj komplex szaknyelvet, emelt szintű magyarázatokat, feltételezve hogy a tanuló felkészült az érettségire vagy egyetemi tanulmányokra. Válaszaid legyenek mélyrehatóak, részletesek, és tartalmazzanak professzionális szintű magyarázatokat és példákat.`;
+            }
+          }
+        }
+      }
 
       const response = await ai.models.generateContent({
         model: AI_MODEL,
         contents: historyMessages,
         config: {
-          systemInstruction:
-            "Válaszolj magyarul. Használhatsz markdown formázást a válaszaidban.",
+          systemInstruction,
         },
       });
 

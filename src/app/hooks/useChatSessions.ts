@@ -7,6 +7,9 @@ export function useChatSessions() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [chatSessions, setChatSessions] = useState<ChatSession[]>([]);
   const [currentChatId, setCurrentChatId] = useState<string>("");
+  const [currentPromptConfig, setCurrentPromptConfig] = useState<
+    { language: string; context: string; grade: string } | undefined
+  >();
 
   useEffect(() => {
     const loadChatSessions = () => {
@@ -41,6 +44,7 @@ export function useChatSessions() {
             messages,
             createdAt: now,
             updatedAt: now,
+            promptConfig: currentPromptConfig,
           };
 
           const updatedSessions = [...chatSessions, newSession];
@@ -60,21 +64,43 @@ export function useChatSessions() {
         console.error("Beszélgetés mentése sikertelen:", error);
       }
     };
-
     saveChatSession();
-  }, [messages, currentChatId]); // Eltávolítottam chatSessions a függőségi listából
-
-  const startNewChat = () => {
+  }, [messages, currentChatId]);
+  const startNewChat = (promptConfig?: {
+    language: string;
+    context: string;
+    grade: string;
+  }) => {
     setMessages([]);
     setCurrentChatId("");
+    setCurrentPromptConfig(promptConfig);
     return true;
   };
 
+  const updatePromptConfig = (promptConfig?: {
+    language: string;
+    context: string;
+    grade: string;
+  }) => {
+    setCurrentPromptConfig(promptConfig);
+
+    // If we have an active chat session, update it in storage
+    if (currentChatId) {
+      const updatedSessions = chatSessions.map((session) =>
+        session.id === currentChatId ? { ...session, promptConfig } : session
+      );
+      setChatSessions(updatedSessions);
+      localStorage.setItem("chatSessions", JSON.stringify(updatedSessions));
+    }
+
+    return true;
+  };
   const loadChatSession = (sessionId: string) => {
     const session = chatSessions.find((s) => s.id === sessionId);
     if (session) {
       setMessages(session.messages);
       setCurrentChatId(session.id);
+      setCurrentPromptConfig(session.promptConfig);
       return true;
     }
     return false;
@@ -93,14 +119,15 @@ export function useChatSessions() {
       setCurrentChatId("");
     }
   };
-
   return {
     messages,
     setMessages,
     chatSessions,
     currentChatId,
+    currentPromptConfig,
     startNewChat,
     loadChatSession,
     deleteChatSession,
+    updatePromptConfig,
   };
 }

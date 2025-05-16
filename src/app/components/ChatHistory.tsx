@@ -72,9 +72,29 @@ export default function ChatHistory({
                         : "text-gray-300 hover:bg-gray-700"
                     }`}
                   >
-                    <span className="truncate text-sm flex-1">
-                      {session.title}
-                    </span>{" "}
+                    {" "}
+                    <div className="truncate text-sm flex-1">
+                      <div>{session.title}</div>{" "}
+                      {session.promptConfig?.language && (
+                        <div className="text-xs text-gray-400">
+                          {session.promptConfig.language}
+                          {session.promptConfig.grade &&
+                            ` • ${
+                              session.promptConfig.grade === "9"
+                                ? "9. oszt."
+                                : session.promptConfig.grade === "10"
+                                ? "10. oszt."
+                                : session.promptConfig.grade === "11"
+                                ? "11. oszt."
+                                : session.promptConfig.grade === "12"
+                                ? "12. oszt."
+                                : session.promptConfig.grade === "13"
+                                ? "13. oszt."
+                                : ""
+                            }`}
+                        </div>
+                      )}
+                    </div>{" "}
                     <button
                       onClick={(e) => handleDeleteClick(session.id, e)}
                       className="text-gray-400 hover:text-gray-200 p-1"
