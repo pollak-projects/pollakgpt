@@ -14,14 +14,14 @@ const InlineCode: React.FC<InlineCodeProps> = ({ children }) => {
 
   // If the content is very short or doesn't contain spaces,
   // assume it's a variable name or short reference and style it lightly
-  const isSimpleReference = content.length < 20 && !content.includes("\n");
+  const isSimpleReference = content.length < 30 && !content.includes("\n");
 
   return (
     <code
       className={`${
         isSimpleReference
           ? "bg-gray-800 text-gray-200 px-1.5 py-0.5 rounded text-sm font-mono"
-          : "block bg-gray-800 p-2 rounded text-sm font-mono overflow-x-auto"
+          : "block bg-gray-800 p-3 rounded text-sm font-mono overflow-x-auto my-2"
       }`}
     >
       {children}

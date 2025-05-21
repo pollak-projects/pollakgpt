@@ -13,6 +13,7 @@
     "@tailwindcss/typography": "^0.5.16",
     "@types/prismjs": "^1.26.5",
     "@types/react-syntax-highlighter": "^15.5.13",
+    "highlight.js": "^11.11.1",
     "markdown-to-jsx": "^7.7.6",
     "next": "15.3.2",
     "prismjs": "^1.30.0",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/highlight.js": "^10.1.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

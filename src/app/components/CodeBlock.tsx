@@ -1,8 +1,12 @@
 "use client";
 
-import React from "react";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { tomorrow } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import React, { useEffect, useRef } from "react";
+import hljs from "highlight.js";
+import registerHighlightLanguages from "../utils/registerHighlightLanguages";
+import "highlight.js/styles/atom-one-dark.css";
+
+// Register languages
+registerHighlightLanguages();
 
 interface CodeBlockProps {
   className?: string;
@@ -10,10 +14,17 @@ interface CodeBlockProps {
 }
 
 const CodeBlock: React.FC<CodeBlockProps> = ({ className, children }) => {
+  const codeRef = useRef<HTMLElement>(null);
   const match = /language-(\w+)/.exec(className || "");
-  const language = match ? match[1] : "text";
+  const language = match ? match[1] : "";
 
   const code = String(children || "").replace(/\n$/, "");
+
+  useEffect(() => {
+    if (codeRef.current) {
+      hljs.highlightElement(codeRef.current);
+    }
+  }, [code, language]);
 
   return (
     <div className="relative group my-4">
@@ -24,13 +35,11 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ className, children }) => {
       >
         Másolás
       </button>
-      <SyntaxHighlighter
-        style={tomorrow}
-        language={language}
-        className="rounded-md overflow-hidden"
-      >
-        {code}
-      </SyntaxHighlighter>
+      <pre className="rounded-md overflow-x-auto bg-gray-900 p-4">
+        <code ref={codeRef} className={language ? `language-${language}` : ""}>
+          {code}
+        </code>
+      </pre>
     </div>
   );
 };
