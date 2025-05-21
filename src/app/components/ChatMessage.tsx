@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Markdown from "markdown-to-jsx";
 import { Message } from "../utils/types";
 import CodeBlock from "./CodeBlock";
+import InlineCode from "./InlineCode";
 import Toast from "./Toast";
 
 interface ChatMessageProps {
@@ -44,12 +45,24 @@ export default function ChatMessage({ message, onRetry }: ChatMessageProps) {
         message.content
       ) : (
         <>
+          {" "}
           <div className="prose prose-invert w-full max-w-none prose-sm sm:prose-base">
             <Markdown
               options={{
                 overrides: {
                   code: {
-                    component: CodeBlock,
+                    component: ({ className, children, ...props }) => {
+                      // If this is a code block with language specification, use CodeBlock
+                      if (className && className.startsWith("language-")) {
+                        return (
+                          <CodeBlock className={className} {...props}>
+                            {children}
+                          </CodeBlock>
+                        );
+                      }
+                      // Otherwise, it's inline code - use our custom component
+                      return <InlineCode>{children}</InlineCode>;
+                    },
                     props: {
                       className: "mb-3 sm:mb-4",
                     },

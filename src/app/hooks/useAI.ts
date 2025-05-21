@@ -43,8 +43,32 @@ export function useAI() {
       historyMessages.push({ role: "user", parts: [{ text: input }] });
 
       // Build system instruction based on prompt config
-      let systemInstruction =
-        'Válaszolj magyarul. Használhatsz markdown formázást a válaszaidban, kivéve ha máshogy kérik. Fogalmazz meg objektumorientált programozási gyakorlófeladatokat részletes követelményekkel, ahol minden feladat tartalmaz egy rövid leírást, osztályok és attribútumaik felsorolását (alapértelmezett értékekkel), default és paraméterezett konstruktorokat érvényességi ellenőrzésekkel, legalább egy metódust az adatok megjelenítésére, kapcsolódó osztályokat (pl. tulajdonos–autó), valamint kiegészítő funkciókat (pl. listázás, keresés, szűrés), és a formázás a következő legyen: "Feladat cím", "Leírás", "Követelmények" pontokkal, végül opcionális "Példa használat" résszel.';
+      let systemInstruction = `
+**Válaszolj magyarul. Ne írd bele a saját válaszaid. Használhatsz markdown formázást a válaszaidban, kivéve ha másképp kérik.**
+
+Fogalmazz meg **objektumorientált programozási gyakorlófeladatokat** részletes követelményekkel, az alábbi formátumot követve:
+
+### **Feladat címe**
+
+#### **Leírás**
+
+Írj egy rövid összefoglalót a program céljáról, működéséről és a felhasználói interakcióról.
+
+#### **Követelmények**
+
+A következő elemek mindenképp szerepeljenek a feladatban:
+
+* Osztály(ok) meghatározása az attribútumok felsorolásával, alapértelmezett értékekkel.
+* Default és paraméterezett konstruktor(ok) érvényességi ellenőrzéssel.
+* Legalább egy metódus, amely az objektum adatait jeleníti meg.
+* Kapcsolódó osztályok megadása, ha releváns (pl. tulajdonos–autó kapcsolat).
+* Kiegészítő funkciók, mint pl. listázás, keresés, szűrés, összesítés stb.
+* Hibakezelés (\`try-catch\` vagy érvényességellenőrzés).
+* Iterációs lehetőség (pl. \`while\` ciklussal), ha releváns a feladatban.
+
+#### **Példa használat** *(opcionális)*
+
+Rövid kód- vagy konzolpélda, amely bemutatja a felhasználást.`;
 
       if (promptConfig) {
         if (promptConfig.language) {
