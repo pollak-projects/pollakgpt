@@ -3,8 +3,7 @@
 import React, { useState } from "react";
 import Markdown from "markdown-to-jsx";
 import { Message } from "../utils/types";
-import CodeBlock from "./CodeBlock";
-import InlineCode from "./InlineCode";
+import { markdownComponents } from "./PrismMarkdownComponents";
 import Toast from "./Toast";
 
 interface ChatMessageProps {
@@ -41,38 +40,23 @@ export default function ChatMessage({ message, onRetry }: ChatMessageProps) {
         message.role === "user" ? "ml-auto" : "mr-auto"
       } relative group`}
     >
+      {" "}
       {message.role === "user" ? (
         message.content
       ) : (
         <>
-          {" "}
           <div className="prose prose-invert w-full max-w-none prose-sm sm:prose-base">
             <Markdown
               options={{
-                overrides: {
-                  code: {
-                    component: ({ className, children, ...props }) => {
-                      // If this is a code block with language specification, use CodeBlock
-                      if (className && className.startsWith("language-")) {
-                        return (
-                          <CodeBlock className={className} {...props}>
-                            {children}
-                          </CodeBlock>
-                        );
-                      }
-                      // Otherwise, it's inline code - use our custom component
-                      return <InlineCode>{children}</InlineCode>;
-                    },
-                    props: {
-                      className: "mb-3 sm:mb-4",
-                    },
-                  },
-                },
+                overrides: markdownComponents,
+                wrapper: React.Fragment,
+                forceBlock: true,
+                forceWrapper: true,
               }}
             >
               {message.content}
             </Markdown>
-          </div>{" "}
+          </div>
           {message.isTyping && <span className="ml-1 typing-cursor"></span>}{" "}
           {!message.isTyping && (
             <div className="absolute bottom-2 right-2 flex space-x-2">

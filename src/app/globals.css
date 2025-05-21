@@ -16,7 +16,7 @@
     background-color: #1f2937;
   } /* Custom styling for code blocks */
   .prose pre {
-    margin: 0.5em 0;
+    margin: 0.25em 0 0.5em 0;
     padding: 0;
     border-radius: 0.375rem;
     overflow-x: auto;
@@ -35,13 +35,82 @@
     padding: 0;
     border-radius: 0;
     font-size: 0.875em;
-  }
-
-  /* Highlight.js specific styling */
+  } /* Highlight.js specific styling */
   pre code.hljs {
     display: block;
     overflow-x: auto;
     padding: 1em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+      "Liberation Mono", "Courier New", monospace;
+    line-height: 1.5;
+    color: #abb2bf; /* Base text color for better readability */
+  }
+
+  /* Fix some styling issues with highlight.js */
+  .hljs {
+    background: transparent !important;
+    padding: 0 !important;
+    color: #abb2bf !important;
+  }
+
+  /* Reduce margin between paragraph and following code block */
+  .prose p + pre {
+    margin-top: 0.2rem;
+  }
+
+  /* Enhanced container for code blocks */
+  .prose pre {
+    background-color: #282c34 !important; /* Darker background for contrast */
+    margin: 0.25rem 0 0.8rem 0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  /* Make sure hljs keywords are properly styled */
+  .hljs-keyword {
+    color: #c678dd !important;
+  }
+
+  .hljs-string {
+    color: #98c379 !important;
+  }
+
+  .hljs-title,
+  .hljs-title.function_ {
+    color: #61afef !important;
+  }
+
+  .hljs-comment {
+    color: #5c6370 !important;
+    font-style: italic;
+  }
+
+  .hljs-number {
+    color: #d19a66 !important;
+  }
+
+  .hljs-operator {
+    color: #56b6c2 !important;
+  }
+
+  /* Make keywords and important elements stand out more */
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-section,
+  .hljs-name {
+    color: #c678dd !important;
+  }
+
+  /* Style for strings */
+  .hljs-string,
+  .hljs-attr {
+    color: #98c379 !important;
+  }
+
+  /* Function names */
+  .hljs-title,
+  .hljs-title.function_ {
+    color: #61afef !important;
   }
 
   /* Style for simple inline code references */

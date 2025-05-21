@@ -28,6 +28,8 @@ module.exports = {
             pre: {
               backgroundColor: "#1f2937",
               color: "#e5e7eb",
+              marginTop: "0.25em",
+              marginBottom: "0.5em",
             },
             blockquote: {
               color: "#e5e7eb",
