@@ -35,22 +35,6 @@
     padding: 0;
     border-radius: 0;
     font-size: 0.875em;
-  } /* Highlight.js specific styling */
-  pre code.hljs {
-    display: block;
-    overflow-x: auto;
-    padding: 1em;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-      "Liberation Mono", "Courier New", monospace;
-    line-height: 1.5;
-    color: #abb2bf; /* Base text color for better readability */
-  }
-
-  /* Fix some styling issues with highlight.js */
-  .hljs {
-    background: transparent !important;
-    padding: 0 !important;
-    color: #abb2bf !important;
   }
 
   /* Reduce margin between paragraph and following code block */

@@ -121,8 +121,7 @@ Rövid kód- vagy konzolpélda, amely bemutatja a felhasználást.`;
       const textRevealSpeed =
         fullText.length > 500 ? 5 : fullText.length > 200 ? 10 : baseSpeed;
       const chunkSize = fullText.length > 1000 ? 3 : 1;
-
-      let isMounted = true;
+      const isMounted = true;
       const controller = new AbortController();
       const signal = controller.signal;
 

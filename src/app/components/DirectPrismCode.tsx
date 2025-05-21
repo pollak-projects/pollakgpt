@@ -31,7 +31,7 @@ import "prismjs/plugins/line-numbers/prism-line-numbers";
 
 interface DirectPrismCodeProps {
   className?: string;
-  children?: any;
+  children?: React.ReactNode;
   inline?: boolean;
 }
 

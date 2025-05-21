@@ -65,7 +65,7 @@ export function useChatSessions() {
       }
     };
     saveChatSession();
-  }, [messages, currentChatId]);
+  }, [messages, currentChatId, chatSessions, currentPromptConfig]);
   const startNewChat = (promptConfig?: {
     language: string;
     context: string;

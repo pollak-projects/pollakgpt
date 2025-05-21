@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import Prism from "prismjs";
 
 // Import core Prism CSS
 import "prismjs/themes/prism-tomorrow.css";
@@ -33,7 +32,7 @@ import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 
 interface CodeBlockProps {
   className?: string;
-  children?: any;
+  children?: React.ReactNode;
   inline?: boolean;
 }
 
@@ -111,7 +110,6 @@ const PrismCodeBlock: React.FC<CodeBlockProps> = ({
       </code>
     );
   }
-
   return (
     <div className="relative group my-4">
       <button

@@ -4,7 +4,6 @@ import React from "react";
 import Markdown from "markdown-to-jsx";
 import { markdownComponents } from "./PrismMarkdownComponents";
 import PrismCodeBlock from "./PrismCodeBlock";
-import "highlight.js/styles/atom-one-dark.css";
 
 export default function SyntaxHighlightingTest() {
   // Sample code snippets for testing

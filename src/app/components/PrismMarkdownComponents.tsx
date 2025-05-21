@@ -1,11 +1,10 @@
 "use client";
 
 import React from "react";
-import { Components } from "react-markdown";
 import DirectPrismCode from "./DirectPrismCode";
 
 interface CodeProps {
-  node?: any;
+  node?: unknown;
   inline?: boolean;
   className?: string;
   children?: React.ReactNode;
@@ -22,8 +21,12 @@ export const MarkdownPre: React.FC<{ children: React.ReactNode }> = ({
     children.type === "code"
   ) {
     const codeElement = children;
-    const className = (codeElement.props as any)?.className || "";
-    const codeContent = String((codeElement.props as any)?.children || "");
+    const className =
+      ((codeElement.props as Record<string, unknown>)?.className as string) ||
+      "";
+    const codeContent = String(
+      (codeElement.props as Record<string, unknown>)?.children || ""
+    );
 
     // We'll let DirectPrismCode handle the length check internally
     return (
