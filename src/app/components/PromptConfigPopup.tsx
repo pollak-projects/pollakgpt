@@ -4,6 +4,9 @@ import React, { useState } from "react";
 
 const PROGRAMMING_LANGUAGES = [
   { value: "", label: "Általános (nincs specifikus nyelv)" },
+  { value: "html", label: "HTML" },
+  { value: "react", label: "React" },
+  { value: "vue", label: "Vue" },
   { value: "javascript", label: "JavaScript" },
   { value: "typescript", label: "TypeScript" },
   { value: "python", label: "Python" },
