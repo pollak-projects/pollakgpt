@@ -10,7 +10,6 @@ interface ChatHistoryProps {
   currentChatId: string;
   loadChatSession: (sessionId: string) => boolean;
   deleteChatSession: (sessionId: string, e: React.MouseEvent) => void;
-  startNewChat: () => boolean;
 }
 
 export default function ChatHistory({
@@ -19,7 +18,6 @@ export default function ChatHistory({
   currentChatId,
   loadChatSession,
   deleteChatSession,
-  startNewChat,
 }: ChatHistoryProps) {
   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
@@ -148,29 +146,7 @@ export default function ChatHistory({
                   </div>
                 ))}
             </div>
-          )}
-        </div>{" "}
-        <div className="py-3 px-3 border-t border-gray-700">
-          <button
-            onClick={startNewChat}
-            className="w-full py-2.5 sm:py-2 px-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md flex items-center justify-center"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 sm:h-4 sm:w-4 mr-2"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-              />
-            </svg>
-            Új beszélgetés
-          </button>
+          )}{" "}
         </div>{" "}
       </div>
       <ConfirmationDialog

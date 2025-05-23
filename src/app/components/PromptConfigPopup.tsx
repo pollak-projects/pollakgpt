@@ -160,7 +160,7 @@ export default function PromptConfigPopup({
               htmlFor="context"
               className="block text-sm font-medium text-gray-300 mb-2"
             >
-              Első üzenet: <span className="text-red-400">*</span>
+              Miről szóljon a feladat? <span className="text-red-400">*</span>
             </label>{" "}
             <textarea
               id="context"

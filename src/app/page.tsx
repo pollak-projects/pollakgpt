@@ -39,9 +39,27 @@ export default function Home() {
     updatePromptConfig,
   } = useChatSessions();
   const { isLoading, generateAIResponse } = useAI();
-  const handleStartNewChat = () => {
-    // Instead of starting a new chat immediately, open the config popup first
+
+  // Handle start new chat with configuration
+  const handleStartConfiguredChat = () => {
+    // Open the config popup
     setIsConfigPopupOpen(true);
+    return true;
+  };
+
+  // Handle start empty chat without configuration
+  const handleStartEmptyChat = () => {
+    // Start a new chat without showing the config popup
+    const result = startNewChat();
+    if (result) {
+      setIsHistoryOpen(false);
+    }
+    return result;
+  };
+
+  // Legacy function for backward compatibility
+  const handleStartNewChat = () => {
+    // This will just show the options in the dropdown now
     return true;
   };
   const handleSaveConfig = async (config: PromptConfig) => {
@@ -117,20 +135,22 @@ export default function Home() {
           className="fixed inset-0 bg-black bg-opacity-50 z-10 sm:hidden"
           onClick={() => setIsHistoryOpen(false)}
         ></div>
-      )}
+      )}{" "}
       <ChatHistory
         isHistoryOpen={isHistoryOpen}
         chatSessions={chatSessions}
         currentChatId={currentChatId}
         loadChatSession={handleLoadChatSession}
         deleteChatSession={deleteChatSession}
-        startNewChat={handleStartNewChat}
       />{" "}
       <div className="flex flex-col flex-1 w-full transition-all sm:border-l-2 sm:border-gray-700">
+        {" "}
         <ChatHeader
           isHistoryOpen={isHistoryOpen}
           setIsHistoryOpen={setIsHistoryOpen}
           startNewChat={handleStartNewChat}
+          startEmptyChat={handleStartEmptyChat}
+          startConfiguredChat={handleStartConfiguredChat}
         />{" "}
         <MessageDisplay
           messages={messages}
