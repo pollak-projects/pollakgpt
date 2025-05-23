@@ -51,12 +51,35 @@ export default function PromptConfigPopup({
   const [language, setLanguage] = useState(initialConfig.language);
   const [context, setContext] = useState(initialConfig.context);
   const [grade, setGrade] = useState(initialConfig.grade);
-
+  const [error, setError] = useState("");
+  const textareaRef = React.useRef<HTMLTextAreaElement>(null);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate that context is provided as it's now mandatory
+    if (!context.trim()) {
+      setError("Kontextus megadása kötelező!");
+      return;
+    }
+
     onSave({ language, context, grade });
     onClose();
   };
+
+  // Auto-resize textarea function
+  const adjustTextareaHeight = () => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = "auto";
+      const newHeight = Math.min(textarea.scrollHeight, 300); // Max height of 300px
+      textarea.style.height = `${newHeight}px`;
+    }
+  };
+
+  // Adjust height on context changes
+  React.useEffect(() => {
+    adjustTextareaHeight();
+  }, [context]);
 
   if (!isOpen) return null;
   return (
@@ -131,21 +154,31 @@ export default function PromptConfigPopup({
                 </option>
               ))}
             </select>
-          </div>
+          </div>{" "}
           <div className="mb-4">
             <label
               htmlFor="context"
               className="block text-sm font-medium text-gray-300 mb-2"
             >
-              További kontextus:
-            </label>
+              Első üzenet: <span className="text-red-400">*</span>
+            </label>{" "}
             <textarea
               id="context"
+              ref={textareaRef}
               value={context}
-              onChange={(e) => setContext(e.target.value)}
-              placeholder="Adj meg bármilyen további információt vagy kontextust a beszélgetéshez..."
-              className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px] text-base sm:text-sm"
+              onChange={(e) => {
+                setContext(e.target.value);
+                if (error && e.target.value.trim()) {
+                  setError("");
+                }
+              }}
+              placeholder="Írj egy kérdést vagy feladatot, amivel kezdeni szeretnéd a beszélgetést..."
+              className={`w-full px-3 py-2 bg-gray-700 border ${
+                error ? "border-red-500" : "border-gray-600"
+              } rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px] max-h-[300px] overflow-y-auto custom-textarea text-base sm:text-sm`}
+              required
             ></textarea>
+            {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
           </div>{" "}
           <div className="flex justify-end space-x-3 mt-6">
             <button

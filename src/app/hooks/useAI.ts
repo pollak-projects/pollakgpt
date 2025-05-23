@@ -26,7 +26,6 @@ export function useAI() {
       }
       const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
       const historyMessages = [];
-
       for (const msg of messages) {
         if (msg.role === "user") {
           historyMessages.push({
@@ -40,7 +39,16 @@ export function useAI() {
           });
         }
       }
-      historyMessages.push({ role: "user", parts: [{ text: input }] });
+
+      // Only add the input as a user message if it's not already the last message
+      const lastMessage = messages[messages.length - 1];
+      if (
+        !lastMessage ||
+        lastMessage.role !== "user" ||
+        lastMessage.content !== input
+      ) {
+        historyMessages.push({ role: "user", parts: [{ text: input }] });
+      }
 
       // Build system instruction based on prompt config
       let systemInstruction = `
@@ -117,10 +125,17 @@ Rövid kód- vagy konzolpélda, amely bemutatja a felhasználást.`;
       let displayedText = "";
       const fullText = responseText;
 
-      const baseSpeed = 15;
+      const baseSpeed = 15; // Faster text reveal for a smoother typing experience, especially for longer texts
       const textRevealSpeed =
-        fullText.length > 500 ? 5 : fullText.length > 200 ? 10 : baseSpeed;
-      const chunkSize = fullText.length > 1000 ? 3 : 1;
+        fullText.length > 1000
+          ? 2
+          : fullText.length > 500
+          ? 4
+          : fullText.length > 200
+          ? 8
+          : baseSpeed;
+      const chunkSize =
+        fullText.length > 2000 ? 5 : fullText.length > 1000 ? 3 : 1;
       const isMounted = true;
       const controller = new AbortController();
       const signal = controller.signal;

@@ -14,7 +14,76 @@
 
   .prose pre::-webkit-scrollbar-track {
     background-color: #1f2937;
-  } /* Custom styling for code blocks */
+  }
+
+  /* Custom scrollbar for message container */
+  .message-container::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .message-container::-webkit-scrollbar-thumb {
+    background-color: #374151;
+    border-radius: 4px;
+  }
+
+  .message-container::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  .message-container::-webkit-scrollbar-thumb:hover {
+    background-color: #4b5563;
+  } /* Custom scrollbar for textarea */
+  .custom-textarea::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .custom-textarea::-webkit-scrollbar-thumb {
+    background-color: #374151;
+    border-radius: 4px;
+    /* Add some margin at bottom and top of thumb to prevent hanging out */
+    border-bottom: 4px solid transparent;
+    border-top: 4px solid transparent;
+    background-clip: padding-box;
+  }
+
+  .custom-textarea::-webkit-scrollbar-track {
+    background-color: transparent;
+    margin-bottom: 4px; /* Add some margin at bottom of track */
+  }
+
+  .custom-textarea::-webkit-scrollbar-thumb:hover {
+    background-color: #4b5563;
+  }
+
+  /* Add padding to textarea with scrollbars */
+  .custom-textarea {
+    padding-right: 16px !important;
+    padding-bottom: 8px !important;
+  }
+
+  /* Specific styling for the chat input textarea */
+  .chat-input-textarea {
+    border-radius: 0.5rem;
+    scrollbar-width: thin;
+  }
+
+  /* Make sure scrollbar stays within bounds in chat input */
+  .chat-input-textarea::-webkit-scrollbar {
+    width: 6px;
+    margin-right: 4px;
+  }
+
+  .chat-input-textarea::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: rgba(55, 65, 81, 0.8);
+  }
+
+  /* Special class for when textarea is scrollable */
+  .scrollable {
+    overflow-y: auto !important;
+  }
+
+  /* Custom styling for code blocks */
   .prose pre {
     margin: 0.25em 0 0.5em 0;
     padding: 0;
@@ -28,6 +97,23 @@
     padding: 0.2em 0.4em;
     border-radius: 0.25rem;
     font-size: 0.875em;
+  }
+
+  /* Typing cursor animation */
+  .typing-cursor {
+    display: inline-block;
+    width: 0.5em;
+    height: 1em;
+    background-color: white;
+    margin-left: 0.2em;
+    vertical-align: middle;
+    animation: blink 1s step-start infinite;
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
   }
 
   .prose pre code {

@@ -16,13 +16,20 @@ export default function ChatInput({
   handleSubmit,
 }: ChatInputProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-
   const adjustTextareaHeight = () => {
     const textarea = textareaRef.current;
     if (textarea) {
       textarea.style.height = "auto";
+      // Calculate the new height based on content
       const newHeight = Math.min(150, Math.max(50, textarea.scrollHeight));
       textarea.style.height = `${newHeight}px`;
+
+      // If height is maxed out, ensure scrollbar is fully visible
+      if (textarea.scrollHeight > 150) {
+        textarea.classList.add("scrollable");
+      } else {
+        textarea.classList.remove("scrollable");
+      }
     }
   };
 
@@ -56,12 +63,30 @@ export default function ChatInput({
                 if (input.trim()) {
                   handleSubmit(e as unknown as FormEvent<HTMLFormElement>);
                 }
+              } else if (e.key === "Tab") {
+                // Prevent losing focus on Tab
+                e.preventDefault();
+                const start = e.currentTarget.selectionStart;
+                const end = e.currentTarget.selectionEnd;
+
+                // Insert tab at cursor position
+                setInput(
+                  input.substring(0, start) + "    " + input.substring(end)
+                );
+
+                // Move cursor after the inserted tab
+                setTimeout(() => {
+                  if (textareaRef.current) {
+                    textareaRef.current.selectionStart =
+                      textareaRef.current.selectionEnd = start + 4;
+                  }
+                }, 0);
               }
             }}
             autoFocus
             rows={1}
             placeholder="Írj egy üzenetet... (Shift+Enter új sorhoz)"
-            className="w-full bg-gray-800 text-white border border-gray-600 rounded-lg py-3 px-4 pr-14 focus:outline-none focus:border-blue-500 resize-none overflow-auto text-base sm:text-sm"
+            className="w-full bg-gray-800 text-white border border-gray-600 rounded-lg py-3 px-4 pr-14 focus:outline-none focus:border-blue-500 resize-none overflow-auto text-base sm:text-sm custom-textarea chat-input-textarea"
             style={{
               minHeight: "50px",
               maxHeight: "150px",

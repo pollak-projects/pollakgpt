@@ -20,13 +20,32 @@ export default function MessageDisplay({
   onEditConfig,
 }: MessageDisplayProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messageContainerRef = useRef<HTMLDivElement>(null);
 
+  // Check if there's a typing message
+  const isTyping = messages.some((message) => message.isTyping);
+
+  // Scroll to bottom when messages array changes
   React.useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // Additional effect to continuously scroll during typing
+  React.useEffect(() => {
+    if (isTyping) {
+      const scrollInterval = setInterval(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "auto" });
+      }, 200); // Scroll every 200ms while typing
+
+      return () => clearInterval(scrollInterval);
+    }
+  }, [isTyping]);
+
   return (
-    <div className="flex-1 overflow-auto p-3 sm:p-4">
+    <div
+      className="flex-1 overflow-auto p-3 sm:p-4 message-container"
+      ref={messageContainerRef}
+    >
       <div className="w-full max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto space-y-4">
         {messages.length === 0 ? (
           <div className="text-center text-gray-400 mt-4 sm:mt-8">

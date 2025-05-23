@@ -44,11 +44,28 @@ export default function Home() {
     setIsConfigPopupOpen(true);
     return true;
   };
-  const handleSaveConfig = (config: PromptConfig) => {
+  const handleSaveConfig = async (config: PromptConfig) => {
     const result = startNewChat(config);
-    if (result) {
+
+    // If context is provided, generate an AI response immediately
+    if (result && config.context && config.context.trim()) {
+      // Get current messages (which should include the newly created message with context)
+      const currentMessages = [
+        {
+          role: "user",
+          content: config.context,
+        },
+      ];
+
+      // Generate AI response to the context message
+      await generateAIResponse(config.context, currentMessages, setMessages, {
+        language: config.language,
+        context: "", // Context is already used as the user message
+        grade: config.grade,
+      });
       setIsHistoryOpen(false);
     }
+
     return result;
   };
 

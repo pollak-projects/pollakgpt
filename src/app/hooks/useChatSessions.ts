@@ -71,9 +71,29 @@ export function useChatSessions() {
     context: string;
     grade: string;
   }) => {
-    setMessages([]);
+    // Create an initial user message using the context field
+    if (promptConfig && promptConfig.context) {
+      const initialMessage: Message = {
+        role: "user",
+        content: promptConfig.context,
+      };
+
+      setMessages([initialMessage]);
+
+      // Copy the promptConfig but without the context as it's now a message
+      const configWithoutContext = {
+        language: promptConfig.language,
+        context: "", // Clear context as it's now a message
+        grade: promptConfig.grade,
+      };
+
+      setCurrentPromptConfig(configWithoutContext);
+    } else {
+      setMessages([]);
+      setCurrentPromptConfig(promptConfig);
+    }
+
     setCurrentChatId("");
-    setCurrentPromptConfig(promptConfig);
     return true;
   };
 
